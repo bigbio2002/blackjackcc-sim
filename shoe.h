@@ -8,6 +8,8 @@
 #include "card.h"
 #include "hilowcount.h"
 
+using namespace std;
+
 class Shoe
 {
 public:
@@ -36,12 +38,11 @@ public:
 	void shuffle()
 	{
 		//KFY shuffle
-		static unsigned int i;
-		for(i = numCards-1; i > 0; i--)
+		for(unsigned int i = numCards-1; i > 0; i--)
 		{
-			static char temp;
-			static int n;
-				
+			char temp;
+			int n;
+
 			n = randgen.rand()%numCards;
 
 			if(n != i)
@@ -62,13 +63,13 @@ public:
 	 moves them before the index cardsDealt. there is no actual discard pile that
 	 is maintained, and therefore you cannot trace back to see what order the
 	 cards were dealt in previous hands */
-	void adjustShuffle(std::list<char> &cardsInPlay)
+	void adjustShuffle(list<char> &cardsInPlay)
 	{
-		static char temp;
+		char temp;
 
 		cardsDealt = cardsInPlay.size();
 
-		static unsigned int i, j;
+		unsigned int i, j;
 		for(i=0;i<cardsDealt;i++)
 		{
 			for(j=0;j<numCards;j++)
@@ -88,6 +89,7 @@ public:
 
 	char drawCard()
 	{
+		//TODO - shuffle instead of terminating
 		if(cardsDealt == numCards)
 			exit(187);	//deck is empty
 
@@ -121,7 +123,7 @@ public:
 	{
 		for(unsigned int i=0;i<numCards;i++)
 		{
-			std::cout << (int)cards[i] << " ";
+			cout << (int)cards[i] << " ";
 		}
 	}
 	void printNamesDebug() const
@@ -129,7 +131,7 @@ public:
 		for(unsigned int i=0;i<numCards;i++)
 		{
 			printName(cards[i]);
-			std::cout << " ";
+			cout << " ";
 		}
 	}
 	//how often does the first card appear at the start of the deck?
@@ -145,7 +147,7 @@ public:
 			}
 		}
 		double total = (double)count/iterations*52;
-		std::cout << total << std::endl;
+		cout << total << endl;
 	}
 
 private:

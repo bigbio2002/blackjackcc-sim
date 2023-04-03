@@ -15,7 +15,7 @@ enum states
 
 #include <iostream>
 #include <string>
-#include <strstream>	//deprecated in mingw???
+//#include <strstream>	//deprecated in mingw???
 #include <cstdlib>
 #include "shoe.h"
 #include "hand.h"
@@ -27,16 +27,18 @@ using namespace std;
 class Blackjack
 {
 public:
-	Blackjack(int numDecks) : numPlayers(1), gameState(BUYIN), quit(false), autoplay(false), numRoundsToPlay(1000000), roundsPlayedCounter(0)
+	Blackjack(int numDecks) : numPlayers(1), gameState(BUYIN), autoplay(false), numRoundsToPlay(1000000), roundsPlayedCounter(0), quit(false)
 	{
 		shoe = new Shoe(numDecks);
 		cutCard = 52*numDecks*0.75;
 		shoe->shuffle();
 	}
+
 	~Blackjack()
 	{
 		delete shoe;
 	}
+
 	void play()
 	{
 		while(!quit)
@@ -384,13 +386,14 @@ public:
 						autoplay = false;
 						roundsPlayedCounter = 0;
 						cout << numRoundsToPlay << " rounds were played. " << flush;
-						system("pause");
+						system("pause");	// Linux doesn't have pause
 					}
 				}
 				break;
 			}
 		}
-	}
+	} /* end play() */
+
 	void drawTable() const
 	{
 		if(autoplay)
@@ -400,7 +403,7 @@ public:
 		}
 		else
 		{
-			system("cls");
+			//system("cls");	//Linux doesn't have cls
 			cout << "                                   Blackjack                                    \n\n";	//80 spaces
 			cout << "Dealer: ";	dealer.printHand(); cout << "  Total: " << dealer.getTotal()/*((dealer.getTotal()==99) ? ("BJ") : (dealer.getTotal()))*/ << "\n";
 			cout << "                                       Deck: "; drawDeck(); cout << '\n';	//39 spaces, can accomodate 8 decks
@@ -411,11 +414,12 @@ public:
 			}
 			cout << "\n\n" << status_output << flush;
 		}
-	}
+	} /* end drawTable() */
+
 	void drawDeck() const
 	{
 		int bars, spaces;
-		static int fieldsize = shoe->totalNumCards()/13;
+		int fieldsize = shoe->totalNumCards()/13;
 
 		bars = (shoe->totalNumCards() - shoe->numCardsDealt())/13;
 		spaces = fieldsize - bars;
@@ -431,7 +435,7 @@ public:
 			cout << ' ';
 		}
 		cout << ']';
-	}
+	} /* end drawDeck() */
 
 private:
 	Shoe *shoe;

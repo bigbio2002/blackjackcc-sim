@@ -39,7 +39,6 @@ public:
 	{
 		return runningCount;
 	}
-
 	void resetCount()
 	{
 		runningCount = 0;

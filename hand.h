@@ -1,18 +1,16 @@
 #ifndef HAND_H
 #define HAND_H
 
-#include <iostream>
 #include <vector>
 #include "card.h"
-
-using namespace std;
 
 class Hand
 {
 public:
-	Hand() : handTotal(0), insured(false), isSplit(false), soft(0), surrendered(false), splitAce(false), bet(0)
+	Hand() : handTotal(0), insured(false), isSplit(false), surrendered(false), splitAce(false), soft(0), bet(0)
 	{
 	}
+
 	void newHand()
 	{
 		handTotal = 0;
@@ -21,6 +19,7 @@ public:
 		soft = 0;
 		bet = 0;
 	}
+
 	void addCard(char card)
 	{
 		//add card to hand
@@ -45,7 +44,8 @@ public:
 			handTotal -= 10;
 			soft--;
 		}
-	}
+	} /* end addCard() */
+
 	int numCards() const
 	{
 		return hand.size();
@@ -95,6 +95,7 @@ public:
 		else
 			return false;
 	}
+
 	Hand *split()
 	{
 		isSplit = true;
@@ -108,6 +109,7 @@ public:
 
 		return new Hand(*this);	//copy the hand and return a pointer. dont need a copy constructor; shallow copy
 	}
+
 	bool isSplitAce() const
 	{
 		return splitAce;
@@ -122,7 +124,7 @@ public:
 	}
 
 private:
-	vector<char> hand;
+	std::vector<char> hand;
 	int handTotal;
 	bool insured, isSplit, surrendered, splitAce;
 	int soft;

@@ -48,7 +48,7 @@ const int DealerS17Multideck_Split[9][10] =
 	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}	//always stand on pair of 10s
 };
 
-//#include <iostream>
+#include <iostream>
 #include <string>
 //#include "hilowcount.h"
 #include "blackjack.h"

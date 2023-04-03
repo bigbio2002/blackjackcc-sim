@@ -1,20 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <iostream>
 #include <vector>
 #include "hand.h"
 #include "playerAI.h"
 
-using namespace std;
-
 class Player
 {
 public:
-	Player() : cash(0), currHand(0), isPlaying(true)
+	Player() : currHand(0), cash(0), isPlaying(true)
 	{
 		hands.push_back(new Hand);
 	}
+
 	~Player()
 	{
 		for(unsigned int i=0;i<hands.size();i++)
@@ -23,12 +21,12 @@ public:
 				delete hands[i];	//avoid memory leaks; this causes a crash
 		}
 	}
+
 	void newRound()
 	{
-		static Hand *temp;
-		static unsigned int i;
+		Hand *temp;
 
-		for(i=1;i<hands.size();i++)
+		for(unsigned int i=1;i<hands.size();i++)
 		{
 			delete hands[i];	//avoid memory leaks
 		}
@@ -38,7 +36,8 @@ public:
 		hands.clear();
 		hands.push_back(temp);
 		currHand = 0;	//use zero-indexed count for hands; this means that the player has one hand
-	}
+	} /* end newRound() */
+
 	void receiveWinnings(double win)
 	{
 		cash+=win;
@@ -62,6 +61,7 @@ public:
 	{
 		return cash;
 	}
+
 	void getCard(char card)
 	{
 		hands[currHand]->addCard(card);
@@ -187,7 +187,7 @@ public:
 	}
 
 private:
-	vector<Hand*> hands;
+	std::vector<Hand*> hands;
 	int currHand;
 	double cash;
 	bool isPlaying;

@@ -11,9 +11,7 @@ int thisCard(char c)
 
 void printName(char c)
 {
-	static char temp;
-
-	temp = (c%13);
+	char temp = (c%13);
 
 	switch(temp)
 	{
@@ -63,9 +61,7 @@ void printName(char c)
 
 int pointValue(char c)
 {
-	static char temp;
-
-	temp = (c%13);
+	char temp = (c%13);
 
 	switch(temp)
 	{
